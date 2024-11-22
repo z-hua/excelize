@@ -271,3 +271,30 @@ func (f *File) GetDocProps() (ret *DocProperties, err error) {
 	}
 	return
 }
+
+// GetCustomProps provides a function to get document custom properties.
+func (f *File) GetCustomProps() (ret *CustomProperties, err error) {
+	custom := new(decodeCustomProperties)
+
+	if err = f.xmlNewDecoder(bytes.NewReader(namespaceStrictToTransitional(f.readXML(defaultXMLPathDocPropsCustom)))).
+		Decode(custom); err != nil && err != io.EOF {
+		return
+	}
+
+	ret = &CustomProperties{Pairs: make(map[string]string)}
+
+	for _, prop := range custom.Properties {
+		switch {
+		case prop.Lpwstr != "":
+			ret.Pairs[prop.Name] = prop.Lpwstr
+		case prop.Bool != "":
+			ret.Pairs[prop.Name] = prop.Bool
+		case prop.Filetime != "":
+			ret.Pairs[prop.Name] = prop.Filetime
+		case prop.R8 != "":
+			ret.Pairs[prop.Name] = prop.R8
+		}
+	}
+
+	return
+}

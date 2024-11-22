@@ -278,6 +278,7 @@ const (
 	defaultXMLPathContentTypes            = "[Content_Types].xml"
 	defaultXMLPathDocPropsApp             = "docProps/app.xml"
 	defaultXMLPathDocPropsCore            = "docProps/core.xml"
+	defaultXMLPathDocPropsCustom          = "docProps/custom.xml"
 	defaultXMLPathSharedStrings           = "xl/sharedStrings.xml"
 	defaultXMLPathStyles                  = "xl/styles.xml"
 	defaultXMLPathTheme                   = "xl/theme/theme1.xml"
